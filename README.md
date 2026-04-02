@@ -1,135 +1,148 @@
-# 코참로지스: 자율주행 로봇 기반 매장 물류 자동화 시스템
+English | [한국어](README.ko.md)
+
+> A project carried out as part of the *[Consortium] On-Device AI System Semiconductor Design, 2nd Cohort* curriculum.
+
+# KorchamLogis: Autonomous Robot-Based Store Logistics Automation System
 
 <img width="500" alt="korchamlogis x2" src="https://github.com/user-attachments/assets/c0369e20-2928-4446-96df-b8d9f50b5547" />
 <img width="300" alt="korchamcar x2" src="https://github.com/user-attachments/assets/d46f275b-0d87-457e-a10d-e82cb1015306" />
 
-8조 팔아조
+Team 8, Palajo
 
-코참로지스는 자율주행 로봇 기반 매장 물류 자동화 시스템으로, 신발 매장의 운영 효율성을 개선하고 고객 경험을 향상시키는 솔루션입니다. 이 저장소는 코참로지스 시스템 중 주행 서브시스템인 **KorchamCar**(Arduino 기반 `controller.c`/`displayer.c`)와, 매니저 GUI 프로토타입인 **logistics-management**(React 앱)를 함께 담고 있다.
+KorchamLogis is an autonomous robot-based store logistics automation system that improves shoe store operating efficiency and enhances the customer experience. This repository holds both the driving subsystem of KorchamLogis, **KorchamCar** (Arduino-based `controller.c`/`displayer.c`), and the manager GUI prototype, **logistics-management** (a React app).
 
-## 1. 코참로지스 (전체 시스템)
+## Role Assignment
 
-### 1.1 프로젝트 개요
+| Name | Role |
+|---|---|
+| Yeonwoo Gim ([@mumallaeng](https://github.com/mumallaeng)) | Team lead, driving control (motor + remote) |
+| Younghyun Lee ([@younghyun0702](https://github.com/younghyun0702)) | Member, object detection and feedback (ultrasonic sensor + buzzer) |
+| Chanmi Lee ([@ichanmi1009](https://github.com/ichanmi1009)) | Member, recognition result output (LCD + NeoPixel) |
+| Gwanggeun Jeong ([@fourevere](https://github.com/fourevere)) | Member, load detection (pressure sensor + LED) |
 
-#### 프로젝트 배경 및 목적
+## 1. KorchamLogis (Overall System)
 
-코참로지스는 자율주행 로봇 기반 매장 물류 자동화 시스템으로, 신발 매장의 운영 효율성을 개선하고 고객 경험을 향상시키는 솔루션입니다. 본 프로젝트는 기존 매장 운영의 한계점을 해결하고, 미래 지향적인 스마트 매장 운영 모델을 구축하는 것을 목표로 하였습니다.
+### 1.1 Project Overview
 
-#### 해결하고자 한 주요 문제점
+#### Project Background and Purpose
 
-기존 신발 매장 운영에서 발견된 핵심 문제점들은 다음과 같습니다:
+KorchamLogis is an autonomous robot-based store logistics automation system that improves shoe store operating efficiency and enhances the customer experience. This project aims to resolve the limitations of existing store operations and build a forward-looking smart store operating model.
 
-- **업무 비효율성**: 반복적인 피킹 작업으로 인한 직원 피로도 증가와 창고 이동 중 고객 응대 공백 발생
-- **고객 경험 저하**: 대기 시간으로 인한 피로감과 추가 시착 요청 시 심리적 부담감 증가
-- **운영상 한계점**: 구매 포기 또는 불충분한 만족도로 인한 매출 손실
+#### Key Problems Addressed
 
-#### 프로젝트 목표 및 기대 효과
+The core problems identified in existing shoe store operations are as follows:
 
-본 시스템 구축을 통해 달성하고자 한 주요 목표는 다음과 같습니다:
+- **Operational inefficiency**: Increased staff fatigue from repetitive picking work, and gaps in customer service while staff move to and from the warehouse
+- **Degraded customer experience**: Fatigue from wait times and psychological burden when requesting additional fitting items
+- **Operational limitations**: Lost sales from abandoned purchases or insufficient satisfaction
 
-- **운영 표준화**: 작업 절차 시스템화로 개인 숙련도 의존도를 감소시키고 운영을 표준화
-- **근무 환경 개선**: 반복 작업과 이동을 감소시켜 직원 피로도를 완화하고 근무 환경을 개선
-- **서비스 품질 안정화**: 응대 공백을 최소화하여 일관된 고객 경험을 제공하고 서비스 품질을 안정화
-- **확장성 확보**: 매장 환경 변화에 유연하게 대응할 수 있는 확장성 있는 구조를 확보
+#### Project Goals and Expected Effects
 
-### 1.2 수행 내용
+The main goals to be achieved through building this system are as follows:
 
-#### 솔루션 개요
+- **Operational standardization**: Reduce dependency on individual skill level by systematizing work procedures, standardizing operations
+- **Improved working environment**: Reduce repetitive work and movement, easing staff fatigue and improving the working environment
+- **Stabilized service quality**: Minimize gaps in customer service to provide a consistent customer experience, stabilizing service quality
+- **Secured scalability**: Secure a scalable structure that can flexibly respond to changes in the store environment
 
-코참로지스 자율주행 로봇 기반의 물류 자동화 시스템으로 매장 운영의 한계를 해결하는 통합 솔루션을 구현하였습니다. 시스템의 핵심 구성 요소는 다음과 같습니다:
+### 1.2 Work Performed
 
-- **QR 스캔 기반 상품 확인**: 상품 확인 및 요청을 간편하게 처리
-- **코참봇 자동 피킹**: 자동으로 상품을 픽업하여 전달
-- **매니저 앱 통합 제어**: 물류 로봇을 제어하고 관리
-- **직원 업무 집중 지원**: 직원이 고객 응대에 집중할 수 있도록 지원
+#### Solution Overview
 
-#### 시스템 아키텍처
+KorchamLogis implements an integrated solution that resolves store operating limitations through an autonomous robot-based logistics automation system. The core components of the system are as follows:
 
-##### 전체 시스템 구조
+- **QR scan-based item verification**: Simplifies item verification and requests
+- **Automatic picking by Korchambot**: Automatically picks up and delivers items
+- **Integrated manager app control**: Controls and manages the logistics robot
+- **Support for staff focus on customer service**: Lets staff focus on customer service
+
+#### System Architecture
+
+##### Overall System Structure
 
 <img width="4033" height="1952" alt="Picture1" src="https://github.com/user-attachments/assets/a1846499-f5f0-4d8d-97cb-7fa21041a06f" />
 
-매니저 앱에서 시작된 요청이 클라우드 서버를 거쳐 로봇으로 전달되고, 수집된 데이터는 AI 학습에 활용되는 통합 구조로 설계되었습니다:
+A request initiated in the manager app passes through the cloud server to the robot, and the collected data is used for AI training, forming an integrated structure:
 
-- **매니저 앱**: QR 스캔 상품 요청 및 요청 정보 처리
-- **클라우드 서버**: 재고 확인 작업 명령 생성
-- **로봇 컨트롤러**: 코참봇 자율주행 제어
-- **데이터베이스**: 사용자/주문상품/재고관리 데이터 저장
-- **AI 학습서버**: 영상분석 모델 개선
+- **Manager app**: Handles QR scan item requests and request information
+- **Cloud server**: Generates inventory-check work orders
+- **Robot controller**: Controls Korchambot's autonomous driving
+- **Database**: Stores user/order item/inventory management data
+- **AI training server**: Improves the video analysis model
 
-##### 프로세스 플로우
+##### Process Flow
 
-실시간 주문 상태 확인으로 투명한 물류 프로세스를 제공하며, 앱을 통해 주문부터 전달까지 전 과정을 실시간으로 모니터링할 수 있습니다:
+Real-time order status checks provide a transparent logistics process, letting the app monitor the entire process from order to delivery in real time:
 
-- **QR 스캔 요청**: 매장 직원이 매니저 앱으로 고객 요청 상품의 QR 코드를 스캔
-- **자동 주문 생성**: 스캔 정보가 시스템에 전달되고 재고 확인 후 상품 요청이 자동 생성
-- **로봇 이동 및 적재**: 코참봇이 해당 상품이 위치한 창고로 이동하여 상품을 적재
-- **상품 전달**: 로봇이 요청 위치로 이동하여 상품을 전달하고 실시간 상태를 확인
-- **창고 복귀**: 전달 완료 후 창고로 복귀하여 다음 주문을 대기
+- **QR scan request**: A store staff member scans the QR code of a customer-requested item using the manager app
+- **Automatic order creation**: The scan information is sent to the system, and after an inventory check, an item request is created automatically
+- **Robot movement and loading**: Korchambot moves to the warehouse where the item is located and loads it
+- **Item delivery**: The robot moves to the requested location, delivers the item, and checks status in real time
+- **Return to warehouse**: After delivery is complete, the robot returns to the warehouse to wait for the next order
 
-#### 사용자 인터페이스 설계
+#### User Interface Design
 
-##### Staff GUI 인터페이스
+##### Staff GUI Interface
 
-총 8개 인터페이스로 구성된 3단계 직원용 관리 시스템을 개발하였습니다:
+A three-stage staff management system consisting of 8 interfaces was developed:
 
-**1단계: 주문 접수**
-- 로그인 → QR 스캔 → 상품 조회 → 주문 생성의 4개 인터페이스로 구성
+**Stage 1: Order intake**
+- Composed of 4 interfaces: login → QR scan → item lookup → order creation
 
-**2단계: 상태 관리**
-- 작업 상태 조회 → 작업 취소 요청의 2개 인터페이스로 실시간 모니터링
+**Stage 2: Status management**
+- Real-time monitoring via 2 interfaces: work status lookup → cancellation request
 
-**3단계: 물류 처리**
-- 피킹 완료 → 배송 시작 → 배송 완료의 2개 인터페이스로 순차 처리
+**Stage 3: Logistics processing**
+- Sequential processing via 2 interfaces: picking complete → delivery started → delivery complete
 
-| 인터페이스 ID | 이름 | 방향 | 설명 |
+| Interface ID | Name | Direction | Description |
 |---|---|---|---|
-| AU | 로그인 인증 요청 | Staff GUI->Main Service | 사용자 인증 |
-| IS | 상품 조회 | Staff GUI->Main Service | QR 기반 상품 조회 |
-| IR | 주문 생성 | Staff GUI->Main Service | 주문 생성 |
-| TR | 작업 상태 조회 | Staff GUI->Main Service | 상태 조회 |
-| CD | 작업 취소 요청 | Staff GUI->Main Service | 배송 취소 |
-| PK | 피킹 완료 | Staff GUI->Main Service | 적재 완료 |
-| DS | 배송 시작 | Staff GUI->Main Service | 배송 시작 |
-| DR | 배송 완료 | Staff GUI->Main Service | 수령 완료 |
+| AU | Login authentication request | Staff GUI->Main Service | User authentication |
+| IS | Item lookup | Staff GUI->Main Service | QR-based item lookup |
+| IR | Order creation | Staff GUI->Main Service | Order creation |
+| TR | Work status lookup | Staff GUI->Main Service | Status lookup |
+| CD | Cancellation request | Staff GUI->Main Service | Delivery cancellation |
+| PK | Picking complete | Staff GUI->Main Service | Loading complete |
+| DS | Delivery started | Staff GUI->Main Service | Delivery started |
+| DR | Delivery complete | Staff GUI->Main Service | Receipt complete |
 
-##### 시스템 간 제어 인터페이스
+##### Inter-System Control Interfaces
 
-- **작업 상태 확인**: 메인 서버에서 직원 앱으로 작업 상태 변경 및 피킹 요청을 통해 현장 작업을 실시간으로 안내
-- **로봇 제어 모니터링**: 로봇 제어 명령 전달과 로봇 상태 정보 수신을 통해 주행 상태를 체계적으로 관리
-- **AI 분석 연동**: 온디바이스 AI 모델로 기본 인식을 수행하고, 이벤트 발생시 AI 서버로 데이터를 전달하여 모델 성능을 개선
+- **Work status updates**: Guides on-site work in real time via work status changes and picking requests sent from the main server to the staff app
+- **Robot control monitoring**: Systematically manages driving status by delivering robot control commands and receiving robot status information
+- **AI analysis integration**: Performs basic recognition with an on-device AI model, and when an event occurs, sends data to the AI server to improve model performance
 
-| 인터페이스 ID | 이름 | 방향 | 설명 |
+| Interface ID | Name | Direction | Description |
 |---|---|---|---|
-| TR_NOTIFY | 작업 상태 알림 | Main Service->Staff GUI | 상태 변경 Push |
-| SR | 피킹 요청 | Main Service->Staff GUI | 피킹 요청 |
-| RC | 로봇 제어 | Main Service->Robot | 이동 명령 |
-| RS | 로봇 상태 보고 | Robot->Main Service | 상태 보고 |
-| IN | AI 인식 결과 | AI Server->Main Service | 객체 인식 |
+| TR_NOTIFY | Work status notification | Main Service->Staff GUI | Status change push |
+| SR | Picking request | Main Service->Staff GUI | Picking request |
+| RC | Robot control | Main Service->Robot | Movement command |
+| RS | Robot status report | Robot->Main Service | Status report |
+| IN | AI recognition result | AI Server->Main Service | Object recognition |
 
-### 1.3 시스템 구현 성과
+### 1.3 System Implementation Results
 
-#### 데이터 구조
+#### Data Structure
 
 <img width="2223" height="1192" alt="image" src="https://github.com/user-attachments/assets/12b18b4a-baa4-4f24-a3aa-47c72ad33cb8" />
 
-**사용자/주문 데이터**
-- `users`: 직원 계정 등 사용자 정보
-- `deliveries`: 주문 단위 저장
-- `delivery_items`: 주문 포함 상품 목록 관리
+**User/order data**
+- `users`: Staff account and other user information
+- `deliveries`: Stores orders as units
+- `delivery_items`: Manages the list of items included in an order
 
-**상품/재고 데이터**
-- `items`: 상품 기본 정보와 위치 정보
-- `inventory`: 재고 수량과 위치 기준 관리
+**Item/inventory data**
+- `items`: Basic item information and location
+- `inventory`: Manages stock quantity by location
 
-**작업/로봇 제어 데이터**
-- `tasks`: 주문 기반 생성 작업 관리, 피킹과 배송 상태 단계별 추적
-- `kochambot_commands`: 로봇 제어 명령 저장
-- `kochambots`: 로봇 상태 정보 관리
+**Task/robot control data**
+- `tasks`: Manages order-based tasks, tracking picking and delivery status step by step
+- `kochambot_commands`: Stores robot control commands
+- `kochambots`: Manages robot status information
 
-#### 프로토타입 구현
+#### Prototype Implementation
 
-실제 매장 환경에서 테스트 가능한 프로토타입을 성공적으로 구현하였습니다. Figma를 통한 UI/UX 설계를 완료하고, 실제 작동 가능한 시스템을 구축하였습니다 [1].
+We successfully implemented a prototype that can be tested in a real store environment. We completed UI/UX design through Figma and built a fully working system [1].
 
 <table>
 <tr>
@@ -146,302 +159,262 @@
 </tr>
 </table>
 
-### 1.4 테스트 및 검증 결과
+### 1.4 Testing and Verification Results
 
-#### 기능별 테스트 결과
+#### Feature Test Results
 
-시스템 기능 검증을 위한 포괄적인 테스트를 수행하였으며, 모든 핵심 기능이 정상적으로 동작함을 확인하였습니다:
+We conducted comprehensive tests to verify system functionality and confirmed that all core features operate normally:
 
-**로그인 기능 검증**
-- 스태프 계정 입력 후 메인 화면 이동 및 현재 작업 상태 표시 확인 완료
+**Login functionality verification**
+- Confirmed staff account entry moves to the main screen and correctly displays the current work status
 
-**요청 내역 관리**
-- 상세 화면 이동, 대기 상태 취소, 수령완료 처리 및 로봇 복귀 요청 확인 완료
+**Request history management**
+- Confirmed detail screen navigation, cancellation of pending requests, receipt-complete processing, and robot return requests
 
-**QR 코드 스캔**
-- 카메라 QR 인식 정상 동작, 상품 정보 조회 및 주문 생성 확인 완료
+**QR code scan**
+- Confirmed camera QR recognition works correctly, along with item lookup and order creation
 
-**재고 조회 시스템**
-- 전체 재고 목록 표시, 품절 상태 요청 및 배송 연결 흐름 검증 완료
+**Inventory lookup system**
+- Confirmed the full inventory list display, out-of-stock request handling, and the delivery connection flow
 
-#### 워크플로우 검증
+#### Workflow Verification
 
-테스트 결과: 모든 핵심 기능이 정상적으로 동작하며, 사용자 시나리오 기반 전체 워크플로우가 성공적으로 검증되었습니다.
+Test result: All core features operate normally, and the entire workflow based on user scenarios was successfully verified.
 
-사용자의 실제 사용 패턴을 반영한 시나리오 테스트를 통해 시스템의 안정성과 사용성을 종합적으로 검증하였습니다. 특히 매장 환경에서 발생할 수 있는 다양한 상황에 대한 대응 능력을 확인하였습니다.
+We comprehensively verified system stability and usability through scenario tests reflecting actual usage patterns, with particular focus on confirming the system's ability to respond to the various situations that can occur in a store environment.
 
-### 1.5 향후 계획 및 제언
+### 1.5 Future Plans and Recommendations
 
-#### 구현 성과 및 시스템 완성도
+#### Implementation Results and System Completeness
 
-- **시스템 구현 완료**: 매장 물류 자동화 시스템과 코참봇-매니저 앱 연동을 성공적으로 완료하였습니다.
-- **워크플로우 검증**: 사용자 시나리오 기반으로 전체 프로세스를 구현하고 실시간 상태 관리 시스템을 구축하였습니다.
+- **System implementation complete**: We successfully completed the store logistics automation system and the integration between Korchambot and the manager app.
+- **Workflow verification**: We implemented the entire process based on user scenarios and built a real-time status management system.
 
-#### 향후 확장 계획
+#### Future Expansion Plans
 
-- **다양한 매장 환경 적용**: 현재 신발 매장에 최적화된 시스템을 다른 소매업종으로 확대 적용할 계획입니다. 의류, 액세서리, 생활용품 등 다양한 매장 환경에서의 활용 가능성을 검토하고 있습니다 [2].
-- **다중 로봇 운영 시스템**: 대형 매장이나 복합 매장에서 여러 대의 로봇을 동시에 운영할 수 있는 시스템으로 확장할 예정입니다. 이를 통해 더 큰 규모의 매장에서도 효율적인 물류 자동화를 실현할 수 있을 것입니다.
+- **Application to various store environments**: We plan to expand the system, currently optimized for shoe stores, to other retail categories. We are reviewing its applicability to various store environments such as clothing, accessories, and household goods [2].
+- **Multi-robot operation system**: We plan to expand to a system that can operate multiple robots simultaneously in large or complex stores, enabling efficient logistics automation even in larger stores.
 
-#### 기술 고도화 방향
+#### Technology Advancement Directions
 
-- **AI 인식 정확도 개선**: 지속적인 데이터 수집과 머신러닝을 통해 상품 인식, 경로 최적화, 장애물 회피 등의 AI 성능을 지속적으로 개선할 계획입니다 [3].
-- **고객 직접 이용 인터페이스**: 현재는 직원용 시스템으로 구현되어 있으나, 향후 고객이 직접 이용할 수 있는 셀프 서비스 인터페이스를 개발하여 더욱 혁신적인 쇼핑 경험을 제공할 예정입니다.
+- **Improving AI recognition accuracy**: We plan to continuously improve AI performance for item recognition, route optimization, and obstacle avoidance through ongoing data collection and machine learning [3].
+- **Direct customer-facing interface**: The system is currently implemented for staff use, but we plan to develop a self-service interface for direct customer use in the future, providing an even more innovative shopping experience.
 
-### 1.6 결론
+### 1.6 Conclusion
 
-- **시스템 완성**: 매니저 앱과 코참봇 연동을 통한 완전한 물류 자동화 시스템 구현
-- **효율성 향상**: 직원 피로도 감소와 고객 응대 품질 개선을 통한 매장 운영 최적화
-- **향후 발전**: 다양한 매장 환경 적용과 AI 기술 고도화를 통한 지속적 발전 계획
+- **System completion**: Implemented a complete logistics automation system through manager app and Korchambot integration
+- **Improved efficiency**: Optimized store operations by reducing staff fatigue and improving customer service quality
+- **Future development**: Ongoing development plans through application to various store environments and AI technology advancement
 
-본 프로젝트를 통해 구축된 기술과 경험을 바탕으로, 앞으로도 소매업계의 디지털 전환을 선도하는 혁신적인 솔루션을 지속적으로 개발해 나갈 것입니다.
+Building on the technology and experience gained through this project, we will continue to develop innovative solutions that lead the digital transformation of the retail industry.
 
-### References (코참로지스)
+### References (KorchamLogis)
 
-[1] Figma 프로토타입. (2026). 코참로지스 매장 물류 자동화 시스템 UI/UX 설계. https://www.figma.com/make/Qo0HTzDHZ71qYTwwVJsWBy/korcham?t=ffSlvnubIWrMOLpn-1&preview-route=%2Flogin
+[1] Figma prototype. (2026). KorchamLogis store logistics automation system UI/UX design. https://www.figma.com/make/Qo0HTzDHZ71qYTwwVJsWBy/korcham?t=ffSlvnubIWrMOLpn-1&preview-route=%2Flogin
 
-[2] HAI ROBOTICS. (2024). SF DHL 신발 자동화 물류센터 프로젝트. https://www.hairobotics.com/kr/cases/sf-dhl-footwear
+[2] HAI ROBOTICS. (2024). SF DHL footwear automated logistics center project. https://www.hairobotics.com/kr/cases/sf-dhl-footwear
 
-[3] 콜드체인뉴스. (2024). 물류경쟁력 핵심 '물류자동화', DX·AI·로봇 중요. https://www.coldchainnews.kr/news/article.html?no=26789
+[3] ColdChain News. (2024). Logistics automation, key to logistics competitiveness — DX, AI, and robotics matter. https://www.coldchainnews.kr/news/article.html?no=26789
 
-## 2. KorchamCar (주행 서브시스템)
+## 2. KorchamCar (Driving Subsystem)
 
 2026.04.01 ~ 2026.04.02
 
-### 2.1 프로젝트 개요
+### 2.1 Project Overview
 
-#### 프로젝트 배경 및 목적
+#### Project Background and Purpose
 
-본 프로젝트는 KorchamLogis[0]를 기반으로 수행된 하위 개발 과제이다. KorchamLogis는 물류 자동화를 목표로하는 시스템으로 구성되며, 로봇을 활용한 상품 운송 및 작업 효율 향상을 주요 목적으로 한다. 본 보고서는 전체 시스템 주행 기능에 초점을 맞춘 KorchamCar 개발에 한정하여 기술한다. KorchamCar는 기존 KorchamBot의 기능 중 이동 및 주행 기능을 독립적으로 분리하여 구현한 주행 특화 플랫폼이다.
+This project is a sub-development task carried out based on KorchamLogis [0]. KorchamLogis is a system aimed at logistics automation, with the main purpose of transporting items and improving work efficiency using robots. This report is limited to describing the development of KorchamCar, which focuses on the driving function of the overall system. KorchamCar is a driving-specialized platform that separately implements the movement and driving functions from KorchamBot as an independent unit.
 
-KorchamCar는 무거운 상자를 직접 들고 운반해야 하는 작업자의 육체적 부담을 줄이기 위해 기획된 하드웨어 기반 스마트 운반 솔루션으로, 작업자가 IR 리모컨으로 카트를 직관적으로 조종하며, 초음파 센서를 통한 충돌 방지(소리 알림) 기능과 압력 센서를 통한 화물 적재 파악 기능을 탑재하여 매장 내 안전사고를 원천 차단한다.
+KorchamCar is a hardware-based smart transport solution designed to reduce the physical burden on workers who must carry heavy boxes by hand. Workers intuitively steer the cart with an IR remote control, and it is equipped with collision prevention (audio alerts) via an ultrasonic sensor and load-detection via a pressure sensor, eliminating safety incidents in the store at the source.
 
-#### 핵심 목표
+#### Core Goals
 
-- **비상 경고 기능**: 주행 중 전방 일정 거리 이내에 장애물이 감지될 경우, 피에조 부저를 울려 경고
-- **5단계 속도 제어 기능**: IR 리모컨을 통해 주행 속도를 1단계에서 5단계까지(PWM 제어) 부드럽게 조절하여, 좁은 내에서도 세밀한 운전이 가능하도록 구현
-- **적재 상태 및 주행 정보 시각화**: 압력 센서를 통해 카트에 물건이 실렸는지 LED로 파악하고, 현재 로봇의 주행 상태(방향, 속도, 장애물 유무, 적재 여부)를 LCD 화면에 실시간으로 출력
+- **Emergency warning feature**: Sounds a piezo buzzer to warn when an obstacle is detected within a set distance ahead while driving
+- **5-level speed control**: Smoothly adjusts driving speed across 5 levels (via PWM control) using the IR remote, enabling fine control even in narrow spaces
+- **Load status and driving information visualization**: Detects whether cargo is loaded on the cart via a pressure sensor and shows it with an LED, and displays the robot's current driving status (direction, speed, obstacle presence, load status) in real time on an LCD screen
 
-#### 기대효과
+#### Expected Effects
 
-| 기능 항목 | 작업자 | 매장 관리자 | 고객 |
+| Feature | Worker | Store Manager | Customer |
 |---|---|---|---|
-| 주행 | 업무 환경 개선 | 적은 비용 대비 고효율 작업 가능 | 서비스 품질 향상 |
-| 충돌 방지 | 심리적 안정감 제공 | 로봇 및 사내 자산 보호 | 안전한 쇼핑 환경 제공 |
-| 화물 적재 판단 | 운반 집중도 향상 | 상품 낙하로 인한 손실 방지 | 브랜드 신뢰도 향상 |
-| 상태 실시간 출력 | 직관적인 조종 환경 제공 | 운영 상태 모니터링 가능 | 로봇 행동 예측 가능 |
+| Driving | Improved working environment | High-efficiency work at low cost | Improved service quality |
+| Collision prevention | Provides psychological safety | Protects the robot and company assets | Provides a safe shopping environment |
+| Load detection | Improves carrying focus | Prevents loss from dropped items | Improves brand trust |
+| Real-time status output | Provides an intuitive control environment | Enables operational status monitoring | Enables predicting robot behavior |
 
-### 2.2 프로젝트 기획 및 문제 해결 방향
+### 2.2 Project Planning and Problem-Solving Direction
 
-#### 문제 정의
+#### Problem Definition
 
-현재 대형 매장과 물류 창고에서는 작업자가 무거운 상품을 직접 손으로 들고 이동하는 방식으로 운영되고 있다. 이러한 수작업 중심의 운영 방식은 크게 세 가지 한계가 있다:
+Large stores and logistics warehouses currently operate by having workers carry heavy items by hand. This manual-labor-centered operating method has three major limitations:
 
-- **작업자의 극심한 체력 소모**: 무거운 화물을 반복적으로 운반해야 하므로 작업자의 육체적 피로도가 급격히 증가하고 근골격계 질환 등의 부담이 가중된다.
-- **시야 제한으로 인한 안전사고 위험**: 높이 쌓인 짐 때문에 전방 시야가 가려져, 이동 중 다른 작업자 보행자나 매장 내 시설물과 부딪히는 아찔한 사고 위험이 늘 존재한다.
-- **업무 효율 저하 및 심리적 불안감**: 무거운 짐을 든 상태로 충돌을 피하며 조심스럽게 이동해야 하므로 작업 속도가 떨어지며, 상품을 떨어뜨리거나 사고를 낼 수 있다는 불안감을 안고 일하게 된다.
+- **Severe physical exhaustion for workers**: Repeatedly carrying heavy cargo sharply increases workers' physical fatigue and adds to the burden of musculoskeletal disorders.
+- **Safety risk from limited visibility**: High-stacked loads block forward visibility, creating a constant risk of dangerous collisions with other workers, pedestrians, or store facilities while moving.
+- **Reduced work efficiency and psychological anxiety**: Having to move carefully while avoiding collisions with a heavy load slows down work, and workers carry the anxiety of possibly dropping items or causing an accident.
 
-#### 해결 방향
+#### Solution Direction
 
-- 수작업으로 인한 체력 소모 → IR 리모컨을 통한 직관적인 원격 제어 주행 시스템 개발
-- 시야 확보 실패로 인한 사고 → 센서가 장애물을 감지하면 소리 알림과 정지를 시키는 스마트 제동 시스템 개발
-- 로봇 정상 작동에 관한 불안감 → LCD로 로봇 상태를 텍스트로 출력하는 실시간 스트리밍 시스템 개발
+- Physical exhaustion from manual labor → Developed an intuitive remote-controlled driving system via IR remote
+- Accidents from failure to secure visibility → Developed a smart braking system that sounds an alert and stops when a sensor detects an obstacle
+- Anxiety about whether the robot is working normally → Developed a real-time streaming system that displays robot status as text on an LCD
 
-#### 개발 환경 및 도구
+#### Development Environment and Tools
 
-| 구분 | 내용 |
+| Category | Details |
 |---|---|
-| 개발 도구 | Tinkercad |
-| 통신 | IRremote, LiquidCrystal I2C, Wire |
-| 협업 도구 | Notion, KakaoTalk |
+| Development tool | Tinkercad |
+| Communication | IRremote, LiquidCrystal I2C, Wire |
+| Collaboration tools | Notion, KakaoTalk |
 
-#### 역할 분담
+### 2.3 System Design
 
-| 이름 | 역할 |
-|---|---|
-| 김연우 | 팀장, 주행 컨트롤(모터 + 리모컨) |
-| 이영현 | 팀원, 객체 탐지 및 표현(초음파 센서 + 부저) |
-| 이찬미 | 팀원, 인식 결과 출력(LCD + 네오 픽셀) |
-| 정광근 | 팀원, 물건 적재 감지(압력센서 + LED) |
-
-### 2.3 시스템 설계
-
-#### 시스템 아키텍처
+#### System Architecture
 
 <img width="1199" height="405" alt="image1" src="https://github.com/user-attachments/assets/4ae36703-0234-4674-84f8-891b02c7111c" />
 
-본 프로젝트에서는 코참로직스의 KorchamBot의 주행만을 초점으로한 KorchamCar를 개발했다.
+In this project, we developed KorchamCar, focusing solely on the driving function of KorchamLogis's KorchamBot.
 
 <img width="1142" height="539" alt="image2" src="https://github.com/user-attachments/assets/227ba594-94f9-42e3-b552-5c1f62ab5ed8" />
 
-KorchamCar는 디스플레이어와 컨트롤러로 구성되어있다. DC모터에서 바퀴가 돌도록 했으나, 팅커캐드에는 바퀴를 달 수가 없기 때문에 시각적 이해를 위해 네오 픽셀을 사용했다.
+KorchamCar consists of a Displayer and a Controller. We drove the wheels using DC motors, but since Tinkercad does not support attaching wheels, we used NeoPixels for visual understanding.
 
-주행 중에 충돌 방지를 위해 객체를 탐지하는 초음파 센서와 이를 인식했음을 LCD에 표기하고, 부저음으로 알리도록 구성했다. 주행 컨트롤은 리모컨을 통해서 하였으며, 적재 여부는 압력센서와 LED로 표현했다.
+To prevent collisions while driving, we configured an ultrasonic sensor to detect objects, display the detection on the LCD, and alert with a buzzer sound. Driving control is done via the remote control, and load status is represented with a pressure sensor and an LED.
 
-#### 부품 목록
+#### Parts List
 
 | Name | Quantity | Component |
 |---|---|---|
 | Controller, Displayer | 2 | Arduino Uno R3 |
-| 배터리 | 2 | 9V Battery |
-| 모터 드라이버 | 1 | H-bridge Motor Driver |
-| 바퀴용 모터 | 4 | DC Motor |
-| 바퀴 시각 표현용 네오픽셀 | 4 | NeoPixel Ring 12 |
-| 리모컨 신호 감지용 IR 센서 | 1 | IR sensor |
-| 적외선 리모컨 | 1 | IR remote |
-| 초음파 센서 | 1 | Ultrasonic Distance Sensor |
-| 객체 인식 알림용 부저 | 1 | Piezo |
+| Battery | 2 | 9V Battery |
+| Motor driver | 1 | H-bridge Motor Driver |
+| Wheel motors | 4 | DC Motor |
+| NeoPixels for wheel visualization | 4 | NeoPixel Ring 12 |
+| IR sensor for remote signal detection | 1 | IR sensor |
+| Infrared remote | 1 | IR remote |
+| Ultrasonic sensor | 1 | Ultrasonic Distance Sensor |
+| Buzzer for object-detection alert | 1 | Piezo |
 | LCD | 1 | MCP23008-based, 32 (0x20) LCD 16 x 2 (I2C) |
-| 압력 센서 | 1 | Force Sensor |
-| 압력 센서 저항 | 1 | 10 kΩ Resistor |
-| 적재 탐지 알림용 LED | 1 | Red LED |
-| LED 저항 | 1 | 270 Ω Resistor |
-| 레귤레이터 | 1 | 5V Regulator [LM7805] |
+| Pressure sensor | 1 | Force Sensor |
+| Pressure sensor resistor | 1 | 10 kΩ Resistor |
+| LED for load-detection alert | 1 | Red LED |
+| LED resistor | 1 | 270 Ω Resistor |
+| Regulator | 1 | 5V Regulator [LM7805] |
 
-#### 아두이노 회로 설계
+#### Arduino Circuit Design
 
-**Controller 핀 배치**
+**Controller pin layout**
 
-입력
+Inputs
 
-| 입력 | 핀번호 |
+| Input | Pin |
 |---|---|
-| IR 센서 | D8 |
-| 초음파 센서 | D11 |
-| 압력 센서 | A0 |
+| IR sensor | D8 |
+| Ultrasonic sensor | D11 |
+| Pressure sensor | A0 |
 
-출력
+Outputs
 
-| 출력 | 핀번호 |
+| Output | Pin |
 |---|---|
-| [1, 1] 바퀴모터 | D5, D6 |
-| [1, 2] 바퀴모터 | D5, D6 |
-| [2, 1] 바퀴모터 | D9, D10 |
-| [2, 2] 바퀴모터 | D9, D10 |
+| [1, 1] wheel motor | D5, D6 |
+| [1, 2] wheel motor | D5, D6 |
+| [2, 1] wheel motor | D9, D10 |
+| [2, 2] wheel motor | D9, D10 |
 
-**Displayer 핀 배치**
+**Displayer pin layout**
 
-출력
+Outputs
 
-| 출력 | 핀번호 |
+| Output | Pin |
 |---|---|
-| [1, 1] 네오픽셀 | D6 |
-| [1, 2] 네오픽셀 | D7 |
-| [2, 1] 네오픽셀 | D9 |
-| [2, 2] 네오픽셀 | D10 |
-| LCD(SDA) | A4 |
-| LCD(SCL) | A5 |
-| 피에조부저 | D3 |
+| [1, 1] NeoPixel | D6 |
+| [1, 2] NeoPixel | D7 |
+| [2, 1] NeoPixel | D9 |
+| [2, 2] NeoPixel | D10 |
+| LCD (SDA) | A4 |
+| LCD (SCL) | A5 |
+| Piezo buzzer | D3 |
 | LED | D5 |
 
-#### 리모컨 설계
+#### Remote Control Design
 
-- **속도 제어**: 최대출력값을 2로 나누어 255를 5단계로 매핑해서 1단계부터 5단계까지로 구성
-- **LCD 출력**: 속도 몇인지 출력 (최대일 때는 MAX, 최소일 때는 MIN)
-- **3x7 구성**: 맨 윗줄은 속도 조절, 나머지 줄은 세 개씩 나눠 윗부분은 Toggle 방향키, 아래부분은 Hold 방향키로 구성
+- **Speed control**: Divides the maximum output value by 2 to map 255 into 5 levels, giving levels 1 through 5
+- **LCD output**: Displays the current speed level (MAX at the highest, MIN at the lowest)
+- **3x7 layout**: The top row adjusts speed; the remaining rows are split into three groups each, with toggle direction keys on top and hold direction keys below
 
 <img width="198" height="405" alt="image3" src="https://github.com/user-attachments/assets/0a71726c-c5bb-48fd-8cd3-c6cae98dda14" />
 
-| 종료 | 속도 줄이기 | 속도 올리기 |
+| Stop | Decrease speed | Increase speed |
 |---|---|---|
 | ↖ | ↑ | ↗ |
-| ← | 정지 | → |
+| ← | Stop | → |
 | ↙ | ↓ | ↘ |
 
-### 2.4 시스템 동작 흐름
+### 2.4 Implementation and Verification
 
-#### 입력 처리 흐름
+With this flow in place, we established the following performance evaluation criteria for verification:
 
-<img width="2064" height="2500" alt="image4" src="https://github.com/user-attachments/assets/a3475242-708f-4056-819f-6c3b95e8a386" />
+- **Driving function**: Forward/backward/left-turn/right-turn operation via DC motors
+- **Remote input**: Remote control signal reception via the IR sensor
+- **Obstacle detection**: Collision prevention system via the ultrasonic sensor
+- **Load status detection**: Cargo load status check via the pressure sensor
+- **Status output**: Real-time information display via the LCD and LED
+- **Integrated operation**: Simultaneous operation and interoperability of all systems
 
-Controller는 전원이 켜지면 먼저 IR 리모컨 입력을 계속 기다린다. 버튼이 눌리면 그 명령이 속도 변경인지, 방향 변경인지, 정지 명령인지 해석한다. 해석이 끝나면 현재 주행 상태를 갱신하고 다시 다음 입력을 기다리는 반복 구조로 돌아간다.
+Verification confirmed that the following items operate normally:
 
-#### 주행 제어 흐름
-
-<img width="2241" height="2500" alt="image5" src="https://github.com/user-attachments/assets/1359a67a-f6d4-48a8-b162-da86d04eeec2" />
-
-Controller는 현재 속도 단계와 방향 상태를 바탕으로 실제 모터 출력을 계산한다. 정지 명령이면 두 모터를 바로 멈추고, 주행 명령이면 PWM 값을 사용해 좌우 바퀴를 구동한다. 이 과정이 반복되면서 차량은 리모컨 입력에 맞춰 계속 움직이게 된다.
-
-#### 센서 감지 흐름
-
-<img width="2398" height="2500" alt="image6" src="https://github.com/user-attachments/assets/e77bca8d-323c-4518-9b4b-6a58ef0e944a" />
-
-Controller는 주행 중에 초음파 센서와 압력센서를 계속 읽어서 주변 상황과 적재 상태를 판단한다. 초음파 값으로는 경고음 모드를 정하고, 압력센서 값으로는 적재 여부를 결정한다. 이렇게 판단한 결과는 패킷으로 만들어져 Displayer로 계속 전달된다.
-
-#### 출력 제어 흐름
-
-<img width="2500" height="2475" alt="image7" src="https://github.com/user-attachments/assets/f3aa4626-3ba9-4077-9230-5c62e10b697b" />
-
-Displayer는 Controller가 보낸 속도, 경고, 적재, 방향 패킷을 받아서 각 출력 장치를 제어한다. LCD는 속도와 경고 상태를 표시하고, 부저와 LED는 거리 및 적재 상태를 소리와 빛으로 알려준다. 네오픽셀은 차량의 물리 위치에 맞춰 점등되어 현재 이동 방향을 직관적으로 보여준다.
-
-### 2.5 구현 및 검증
-
-이러한 흐름으로 구성하여 검증을 할 때는 다음 성능 평가 기준을 세웠다:
-
-- **주행 기능**: DC 모터를 통한 전진/후진/좌회전/우회전 동작
-- **리모컨 입력**: IR 센서를 통한 원격 제어 신호 수신
-- **장애물 감지**: 초음파 센서를 통한 충돌 방지 시스템
-- **적재 여부 판단**: 압력 센서를 통한 화물 적재 상태 확인
-- **상태 출력**: LCD 및 LED를 통한 실시간 정보 표시
-- **통합 동작**: 모든 시스템의 동시 작동 및 상호 연동
-
-검증 결과, 다음 항목들이 정상 동작함을 확인했다:
-
-<img width="480" height="654" alt="전체 실행 테스트" src="https://github.com/user-attachments/assets/33e0684f-7e49-46f1-88cf-6b32abc3a29d" />
+<img width="480" height="654" alt="full run test" src="https://github.com/user-attachments/assets/33e0684f-7e49-46f1-88cf-6b32abc3a29d" />
 
 <table>
 <tr>
-<td><img width="350" alt="리모컨 모터제어" src="https://github.com/user-attachments/assets/b675027e-ecd5-48a3-a410-0338f4af66a3" /></td>
-<td><img width="350" alt="4륜 모터 리모컨 제어" src="https://github.com/user-attachments/assets/cbf36dad-8f03-400e-ad24-2b4acddfab61" /></td>
+<td><img width="350" alt="remote motor control" src="https://github.com/user-attachments/assets/b675027e-ecd5-48a3-a410-0338f4af66a3" /></td>
+<td><img width="350" alt="4-wheel motor remote control" src="https://github.com/user-attachments/assets/cbf36dad-8f03-400e-ad24-2b4acddfab61" /></td>
 </tr>
 <tr>
-<td><img width="350" alt="초음파센서+부저" src="https://github.com/user-attachments/assets/5a306475-67b7-45e4-9504-bee4b9621768" /></td>
-<td><img width="350" alt="압력센서+LED" src="https://github.com/user-attachments/assets/1e244f97-ce41-4533-8ead-c959f63a12c4" /></td>
+<td><img width="350" alt="ultrasonic sensor + buzzer" src="https://github.com/user-attachments/assets/5a306475-67b7-45e4-9504-bee4b9621768" /></td>
+<td><img width="350" alt="pressure sensor + LED" src="https://github.com/user-attachments/assets/1e244f97-ce41-4533-8ead-c959f63a12c4" /></td>
 </tr>
 </table>
 
-1. **DC 모터 + 리모컨**: 토글 직진 동작과 정지 입력이 정상 반영됨을 확인
-2. **초음파 센서 + 부저 통신**: 거리 > 150cm, 50cm < 거리 < 150cm, 거리 <= 50cm 구간별로 경고 단계가 구분되어 동작함을 확인
-3. **LCD**: 주행 속도 5단계 출력과 장애물 감지신호 출력을 확인
-4. **압력 센서 + LED 통신**: 힘 <= 0.6N에서 LED OFF, 힘 >= 0.6N에서 LED ON으로 정상 전환됨을 확인
+1. **DC motor + remote**: Confirmed that toggle forward movement and stop input are correctly reflected
+2. **Ultrasonic sensor + buzzer communication**: Confirmed distinct warning levels for distance > 150cm, 50cm < distance < 150cm, and distance <= 50cm
+3. **LCD**: Confirmed the 5-level speed display and obstacle-detection signal display
+4. **Pressure sensor + LED communication**: Confirmed correct switching, with the LED OFF at force <= 0.6N and ON at force >= 0.6N
 
-### 2.6 프로젝트 성과 및 한계점
+### 2.5 Project Outcomes and Limitations
 
-#### 성과
+#### Outcomes
 
-- **안전성 향상**: 초음파 센서 기반 정지 알림 시스템으로 충돌 사고 위험 최소화
-- **작업 효율성**: 5단계 속도 제어를 통한 정밀한 주행 제어 구현
-- **사용자 편의성**: LCD 및 LED를 통한 직관적인 상태 정보 제공
-- **시스템 안정성**: 아두이노 이중화 구조로 안정적인 통신 및 제어 실현
+- **Improved safety**: Minimized collision risk with an ultrasonic-sensor-based stop-alert system
+- **Work efficiency**: Achieved precise driving control via 5-level speed control
+- **User convenience**: Provided intuitive status information via LCD and LED
+- **System stability**: Achieved stable communication and control through a dual-Arduino structure
 
-#### 한계점 및 개선 방향
+#### Limitations and Improvement Directions
 
-- **IR 신호 거리로 인한 제어 불안정**: 리모컨 수신 신호 거리 제한으로 인한 오작동 발생 가능성
-- **초음파 센서 부족으로 인한 사각지대**: 전방 센서 만으로는 측면 및 후방 충돌 위험 존재
-- **바닥 마찰도로 인한 거리 오차**: 바닥 재질에 따른 거리 측정 오차로 충돌 위험 발생 가능성
+- **Unstable control from IR signal range**: Potential malfunction due to the limited reception range of the remote control
+- **Blind spots from insufficient ultrasonic sensors**: A front-only sensor leaves collision risk on the sides and rear
+- **Distance error from floor friction**: Distance measurement error depending on floor material, creating potential collision risk
 
-#### 향후 개선 방안
+#### Future Improvement Plans
 
-- 다중 초음파 센서 배치를 통한 360도 장애물 감지 시스템 구축
-- WiFi 또는 블루투스 기반 무선 통신으로 제어 안정성 향상
-- 카메라 모듈 추가를 통한 시각적 장애물 인식 기능 강화
+- Build a 360-degree obstacle detection system using multiple ultrasonic sensors
+- Improve control stability with WiFi- or Bluetooth-based wireless communication
+- Strengthen visual obstacle recognition by adding a camera module
 
-### 2.7 결론 및 학습 성과
+### 2.6 Conclusion and Lessons Learned
 
-#### 프로젝트 완성도
+#### Project Completeness
 
-원격 제어, 충돌 방지, 적재 상태 감지, 실시간 정보 표시 등 모든 요구사항이 충족되었으며, 실제 물류 현장에서 활용 가능한 수준의 프로토타입을 개발했다.
+All requirements were met, including remote control, collision prevention, load-status detection, and real-time information display, resulting in a prototype usable at a level suitable for an actual logistics site.
 
-#### 학습 성과 및 인사이트
+#### Lessons Learned and Insights
 
-개발 과정에서는 통신 지연이나 센서 간 충돌로 시스템이 멈추는 문제를 겪으면서, 코드 한 줄의 오류가 전체 시스템에 영향을 줄 수 있다는 점을 체감했다. 이를 통해 설계 단계에서의 안정성과 완성도가 얼마나 중요한지 이해하게 되었다.
+During development, we experienced issues where communication delays or sensor conflicts caused the system to freeze, which made us realize that a single line of faulty code can affect the entire system. This helped us understand how important stability and completeness are at the design stage.
 
-또한 기능을 많이 넣는 것보다, 핵심 기능을 직관적으로 제공하는 것이 더 중요하다는 점을 느꼈다. 항상 사용자 입장에서 필요한 정보를 고민하고, 편의성을 고려한 설계가 중요하다는 점을 다시 한번 확인했으며, 좋은 엔지니어링은 사용자가 신뢰하고 쉽게 이해할 수 있는 설계라는 것을 배울 수 있었다.
-
-# 일정
-
-<img width="796" height="402" alt="image" src="https://github.com/user-attachments/assets/d3b3f7e1-7b4e-4ae3-b369-b99d4a0dc4ef" />
-<img width="1620" height="731" alt="image69" src="https://github.com/user-attachments/assets/13dbe1b5-5b27-466b-b89c-c2ab53a8ce34" />
+We also felt that providing core functionality intuitively matters more than packing in many features. We reaffirmed the importance of always considering the information users need and designing with convenience in mind, and learned that good engineering is design that users can trust and easily understand.
 
 ### Reference (KorchamCar)
 
-[0] KorchamLogis Github - KorchamCar https://github.com/mumallaeng/KorchamLogis
+[0] KorchamLogis GitHub - KorchamCar https://github.com/mumallaeng/KorchamLogis
